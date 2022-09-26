@@ -86,4 +86,16 @@ public class User {
     public void setReservations(Collection<Reservation> reservations) {
         this.reservations = reservations;
     }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", password='" + password + '\'' +
+                ", email='" + email + '\'' +
+                ", roles=" + roles +
+                ", reservations=" + reservations +
+                '}';
+    }
 }

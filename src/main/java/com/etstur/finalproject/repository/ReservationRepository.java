@@ -4,11 +4,12 @@ import com.etstur.finalproject.entity.Reservation;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Collection;
+import java.util.Optional;
 
 public interface ReservationRepository extends JpaRepository<Reservation, Long> {
 
-    Reservation findById(int id);
+    Optional<Reservation> findById(Long id);
 
-    Collection<Reservation> findAllByUserId(int id);
+    Collection<Reservation> findAllByUserId(Long userId);
 
 }

@@ -16,14 +16,6 @@ public class UserController {
         this.userService = userService;
     }
 
-    @GetMapping("/all")
-    public Collection<User> getAllUser(){
-        return userService.getAll();
-    }
 
-    @PostMapping("/save")
-    public void saveUser(@RequestBody User user){
-        userService.save(user);
-    }
 
 }
