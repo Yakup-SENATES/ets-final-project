@@ -7,4 +7,5 @@ public interface RoleService {
 
     public Role findRoleByName(String name);
 
+    void save(Role role);
 }

@@ -14,8 +14,8 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
-import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -29,16 +29,21 @@ public class UserServiceImpl implements UserService {
     private final RoleServiceImpl roleService;
     private BCryptPasswordEncoder passwordEncoder;
 
+
+
+    @PostConstruct
+    public void init() {
+        passwordEncoder = new BCryptPasswordEncoder();
+        Role role = new Role();
+        role.setName("ROLE_USER");
+        roleService.save(role);
+    }
+
+
     @Override
     @Transactional
     public User findUserByEmail(String email) {
         return userRepository.findByEmail(email);
-    }
-
-    @Override
-    @Transactional
-    public User findUserByUserName(String userName) {
-        return userRepository.findByUserName(userName);
     }
 
 
@@ -51,7 +56,7 @@ public class UserServiceImpl implements UserService {
         newUser.setEmail(currentUser.getEmail());
         //bcrypt password to save it hashing in database
         newUser.setPassword(passwordEncoder.encode(currentUser.getPassword()));
-        newUser.setRoles(List.of(roleService.findRoleByName("ROLE_EMPLOYEE")));
+        newUser.setRoles(List.of(roleService.findRoleByName("ROLE_USER")));
         userRepository.save(newUser);
     }
 
@@ -70,6 +75,7 @@ public class UserServiceImpl implements UserService {
             return principal.toString();
         }
     }
+
 
     @Override
     @Transactional

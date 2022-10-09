@@ -1,22 +1,15 @@
-package com.etstur.finalproject.entity;
+package com.etstur.finalproject.dto;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.etstur.finalproject.entity.Room;
+import lombok.*;
 
-import javax.persistence.*;
 import java.util.List;
 
-@Entity
 @Getter
 @Setter
 @RequiredArgsConstructor
-public class Hotel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
-
+@ToString
+public class HotelDto {
     private String name;
     private String address;
     private String city;
@@ -25,9 +18,5 @@ public class Hotel {
     private String email;
     private String description;
     private String image;
-
-    @OneToMany
     private List<Room> rooms;
-
-
 }
