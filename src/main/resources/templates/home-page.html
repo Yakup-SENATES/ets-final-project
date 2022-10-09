@@ -67,24 +67,35 @@
                     <div class="container ie-h-align-center-fix">
                         <div class="row">
                             <div class="col-xs-12 ml-auto mr-auto ie-container-width-fix">
-                                <form action="index.html" method="get" class="tm-search-form tm-section-pad-2">
+                                <form th:action="@{/hotel}" method="get" class="tm-search-form tm-section-pad-2" th:object="${reservation}">
                                     <div class="form-row tm-search-form-row">
-                                        <div class="form-group tm-form-element tm-form-element-100">
+                                        <!--List of City-->
+                                        <div  class="form-group tm-form-element tm-form-element-100">
                                             <i class="fa fa-map-marker fa-2x tm-form-element-icon"></i>
-                                            <input name="city" type="text" class="form-control" id="inputCity" placeholder="Type your destination...">
+                                            <!--<input name="city" type="text" class="form-control" id="inputCity" placeholder="Type your destination...">-->
+                                            <label>
+                                                <select class="form-control tm-select" th:field="*{destination}">
+                                                    <option value="">Choose your destination...</option>
+                                                    <option th:each="city: ${cities}" value="${city}" th:text="${city}">Paris</option>
+                                                </select>
+                                            </label>
                                         </div>
+                                        <!-- End List of City-->
+
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                            <input th:field="*{checkIn}" name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
                                         </div>
+
                                         <div class="form-group tm-form-element tm-form-element-50">
                                             <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                            <input name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                            <input th:field="*{checkIn}" name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
                                         </div>
+
                                     </div>
                                     <div class="form-row tm-search-form-row">
                                         <div class="form-group tm-form-element tm-form-element-2">                                            
-                                            <select name="adult" class="form-control tm-select" id="adult">
+                                            <select th:field="*{adultCount}" name="adult" class="form-control tm-select" id="adult">
                                                 <option value="">Adult</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -100,7 +111,7 @@
                                             <i class="fa fa-2x fa-user tm-form-element-icon"></i>
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-2">                                            
-                                            <select name="children" class="form-control tm-select" id="children">
+                                            <select th:field="*{childCount}" name="children" class="form-control tm-select" id="children">
                                                 <option value="">Children</option>
                                                 <option value="0">0</option>
                                                 <option value="1">1</option>
@@ -117,7 +128,7 @@
                                             <i class="fa fa-user tm-form-element-icon tm-form-element-icon-small"></i>
                                         </div>
                                         <div class="form-group tm-form-element tm-form-element-2">
-                                            <select name="room" class="form-control tm-select" id="room">
+                                            <select th:field="*{roomCount}" name="room" class="form-control tm-select" id="room">
                                                 <option value="">Room</option>
                                                 <option value="1">1</option>
                                                 <option value="2">2</option>
@@ -516,7 +527,7 @@
                 $('.tm-current-year').text(new Date().getFullYear());                           
             });
 
-        </script>             
+        </script>
 
 </body>
 </html>

@@ -1,6 +1,7 @@
 package com.etstur.finalproject.controller;
 
 import com.etstur.finalproject.entity.User;
+import com.etstur.finalproject.service.HotelService;
 import com.etstur.finalproject.service.ReservationService;
 import com.etstur.finalproject.service.UserService;
 import com.etstur.finalproject.temp.CurrentReservation;
@@ -16,10 +17,12 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.util.Map;
 
 @Controller
 @AllArgsConstructor
@@ -28,6 +31,7 @@ public class HotelReservationController {
 
     private final UserService userService;
     private final ReservationService reservationService;
+    private final HotelService hotelService;
 
     // initbinder processes all web requests and trims all strings
     // and its provide us to handle null values
@@ -37,18 +41,22 @@ public class HotelReservationController {
         binder.registerCustomEditor(String.class, trimmerEditor);
     }
 
+    private Map<String, Object> getHotelCities() {
+        return Map.of("cities", hotelService.getAllCities());
+    }
+
     //home page
     @GetMapping
-    public String homePage(){
-        return "home-page";
+    public ModelAndView homePage() {
+        return new ModelAndView("home-page", getHotelCities());
     }
 
     //login page
     @GetMapping("/login-form-page")
-    public String loginPage(Model model){
+    public String loginPage(Model model) {
         //if user is already logged in, redirect to home page
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if(!(authentication == null || authentication instanceof AnonymousAuthenticationToken)){
+        if (!(authentication == null || authentication instanceof AnonymousAuthenticationToken)) {
             return "redirect:/";
         }
         // new user Attribute for signup form
@@ -59,18 +67,18 @@ public class HotelReservationController {
     // registration process page
     @PostMapping("/processRegistration")
     public String registrationProcess(@Valid @ModelAttribute("newUser") CurrentUser currentUser,
-                                      BindingResult bindingResult, Model model){
+                                      BindingResult bindingResult, Model model) {
 
         //check if user already exists
         User user = userService.findUserByEmail(currentUser.getEmail());
-        if (user != null){
+        if (user != null) {
             model.addAttribute("registrationError", "User already exists");
             model.addAttribute("newUser", new CurrentUser());
             return "login";
         }
 
         //if binding has no error than create a User
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             model.addAttribute("newUser", new CurrentUser());
             model.addAttribute("registrationError", "Please fill all fields");
         } else {
@@ -79,10 +87,10 @@ public class HotelReservationController {
         }
         return "redirect:/login-form-page";
     }
-    
+
     // Booking page
     @GetMapping("/new-reservation")
-    public String newReservation(Model model){
+    public String newReservation(Model model) {
         model.addAttribute("hotel", new CurrentReservation());
         model.addAttribute("newRes", new CurrentUser());
         return "new-reservation";
@@ -91,10 +99,10 @@ public class HotelReservationController {
     //save new Reservation
     @PostMapping("/proceed-reservation")
     public String proceedReservation(@Valid @ModelAttribute("newRes") CurrentReservation currentReservation,
-                                     BindingResult bindingResult, Model model){
+                                     BindingResult bindingResult, Model model) {
 
         // if there is no error than save reservation
-        if (bindingResult.hasErrors()){
+        if (bindingResult.hasErrors()) {
             model.addAttribute("newRes", new CurrentReservation());
             model.addAttribute("reservationError", "Please fill all fields");
         } else {
@@ -106,14 +114,14 @@ public class HotelReservationController {
 
     // reservations of User
     @GetMapping("/your-reservations")
-    public String yourReservations(Model model){
+    public String yourReservations(Model model) {
         model.addAttribute("resList", reservationService.getAllReservationsForLoggedUser());
         return "your-reservations";
     }
 
     // update reservation
     @GetMapping("/reservation-update")
-    public String updateReservation(@RequestParam("resId") int resId,  Model model){
+    public String updateReservation(@RequestParam("resId") int resId, Model model) {
         //new Update reservation attribute send to  service to store it
         model.addAttribute("newRes", reservationService.reservationToCurrentReservation((long) resId));
         return "reservation-update";
@@ -122,7 +130,7 @@ public class HotelReservationController {
 
     // Delete Reservation
     @GetMapping("/reservation-delete")
-    public String deleteReservation(@RequestParam("resId") int resId){
+    public String deleteReservation(@RequestParam("resId") int resId) {
         reservationService.deleteReservation((long) resId);
         return "redirect:/your-reservations";
     }
@@ -133,7 +141,7 @@ public class HotelReservationController {
         //handle logout for logged in user
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth != null){
+        if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
         return "redirect:/login-form-page?logout";
