@@ -1,16 +1,16 @@
 package com.etstur.finalproject.temp;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
-@RequiredArgsConstructor
+@AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class CurrentReservation {
     // temp class to filter data and get it from controller to database using services
     // current reservation fields and annotate to get the required data
@@ -55,6 +55,10 @@ public class CurrentReservation {
     @Size(min = 1, message = "is required")
     private int userTId;
 
+    @NotNull(message = "is required")
+    @Size(min = 1, message = "is required")
+    private String destination;
+
 
     @Override
     public String toString() {
@@ -69,6 +73,7 @@ public class CurrentReservation {
                 ", openBuffet='" + openBuffet + '\'' +
                 ", arrivalDate=" + arrivalDate +
                 ", userTId=" + userTId +
+                ", destination='" + destination + '\'' +
                 '}';
     }
 }

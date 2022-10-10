@@ -43,6 +43,9 @@ public class Reservation {
     @Column(name = "reservation_user_id")
     private Long userId;
 
+    @Column(name = "destination")
+    private String destination;
+
     @Override
     public String toString() {
         return "Reservation{" +
@@ -56,6 +59,7 @@ public class Reservation {
                 ", arrivalDate=" + arrivalDate +
                 ", stayDays=" + stayDays +
                 ", userId=" + userId +
+                ", destination='" + destination + '\'' +
                 '}';
     }
 }

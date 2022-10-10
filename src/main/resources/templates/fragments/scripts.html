@@ -1,10 +1,13 @@
 <div th:fragment="scripts">
-    <script th:src="@{js/jquery-1.11.3.min.js}"></script>             <!-- jQuery (https://jquery.com/download/) -->
-    <script th:src="@{js/popper.min.js}"></script>                    <!-- https://popper.js.org/ -->
-    <script th:src="@{js/bootstrap.min.js}"></script>                 <!-- https://getbootstrap.com/ -->
-    <script th:src="@{js/datepicker.min.js}"></script>                <!-- https://github.com/qodesmith/datepicker -->
-    <script th:src="@{js/jquery.singlePageNav.min.js}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
-    <script th:src="@{slick/slick.min.js}"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
+    <script th:src="@{../js/jquery-1.11.3.min.js}"></script>             <!-- jQuery (https://jquery.com/download/) -->
+    <script th:src="@{../js/popper.min.js}"></script>                    <!-- https://popper.js.org/ -->
+    <script th:src="@{../js/bootstrap.min.js}"></script>                 <!-- https://getbootstrap.com/ -->
+    <!--<script th:src="@{../js/datepicker.min.js}"></script>-->                <!-- https://github.com/qodesmith/datepicker -->
+    <script th:src="@{../js/jquery.singlePageNav.min.js}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+    <script th:src="@{../slick/slick.min.js}"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+
     <script>
 
         /* Google map
@@ -111,8 +114,13 @@
             loadGoogleMap();
 
             // Date Picker
-            const pickerCheckIn = datepicker('#inputCheckIn');
-            const pickerCheckOut = datepicker('#inputCheckOut');
+           // const pickerCheckIn = datepicker('#inputCheckIn');
+            //const pickerCheckOut = datepicker('#inputCheckOut');
+            $.fn.datepicker.defaults.format = "mm-dd-yyyy";
+            $('.datepicker').datepicker({
+                startDate: '-3d'
+            });
+
 
             // Slick carousel
             setCarousel();
