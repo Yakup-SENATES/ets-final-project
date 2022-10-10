@@ -47,7 +47,9 @@ public class HotelReservationController {
 
     //home page
     @GetMapping
-    public ModelAndView homePage() {
+    public ModelAndView homePage(Model model) {
+        model.addAttribute("currentUser", new CurrentUser());
+        model.addAttribute("currentReservation", new CurrentReservation());
         return new ModelAndView("home-page", getHotelCities());
     }
 
