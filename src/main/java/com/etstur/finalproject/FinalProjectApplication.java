@@ -43,7 +43,10 @@ public class FinalProjectApplication implements CommandLineRunner {
         hotel.setName("Istanbul Hotel");
         hotel.setRooms(null);
         hotel.setAddress("Istanbul");
+        hotel.setDescription("Jacop -> Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis sit amet ligula");
         hotel.setImage("img/img-01.jpg");
+        hotel.setPhone("123456789");
+        hotel.setEmail("hotel@q.q");
         hotelRepository.save(hotel);
 
     }

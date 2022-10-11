@@ -1,5 +1,7 @@
 package com.etstur.finalproject.controller;
 
+import com.etstur.finalproject.entity.Hotel;
+import com.etstur.finalproject.service.HotelService;
 import com.etstur.finalproject.service.UserService;
 import com.etstur.finalproject.temp.CurrentReservation;
 import lombok.RequiredArgsConstructor;
@@ -16,6 +18,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.List;
 
 @Controller
 @RequestMapping("/hotels")
@@ -23,6 +26,7 @@ import java.util.Date;
 public class HotelController {
 
     private final UserService userService;
+    private final HotelService hotelService;
 
     @GetMapping("/list")
     public String list(
@@ -34,6 +38,7 @@ public class HotelController {
             Model model) throws ParseException, IOException {
         CurrentReservation reservation =  CurrentReservation
                 .builder()
+                .destination(destination)
                 .children(children)
                 .persons(adults)
                 .arrivalDate(parseDate(checkIn))
@@ -42,6 +47,7 @@ public class HotelController {
                 .stayPeriod(betweenDates(parseDate(checkIn), parseDate(checkOut)))
                 .build();
         model.addAttribute("reservation", reservation);
+        model.addAttribute("hotels", getHotels(destination));
         return "hotels/list";
     }
 
@@ -61,6 +67,10 @@ public class HotelController {
     //Parse date from string
     private Date parseDate(String date) throws ParseException {
         return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+    }
+
+    private List<Hotel> getHotels(String destination) {
+        return hotelService.getHotelsWithDestination(destination);
     }
 
 

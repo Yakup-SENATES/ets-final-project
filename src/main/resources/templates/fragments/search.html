@@ -13,7 +13,7 @@
                                 <label>
                                     <select class="form-control tm-select" th:name="destination">
                                         <option value="">Choose your destination...</option>
-                                        <option th:each="city: ${cities}" value="${city}" th:text="${city}">Paris</option>
+                                        <option th:each="city: ${cities}" th:value="${city}" th:text="${city}">Paris</option>
                                     </select>
                                 </label>
                             </div>
