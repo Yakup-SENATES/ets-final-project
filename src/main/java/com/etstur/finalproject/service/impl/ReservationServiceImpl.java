@@ -9,6 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
+import java.text.ParseException;
 import java.util.Collection;
 import java.util.Optional;
 
@@ -37,7 +38,7 @@ public class ReservationServiceImpl implements ReservationService {
     //Reservation class after check it to save it
     @Override
     @Transactional
-    public void saveOrUpdateReservation(CurrentReservation currentReservation) {
+    public void saveOrUpdateReservation(CurrentReservation currentReservation) throws ParseException {
         Reservation reservation = new Reservation();
 
         reservation.setUserId(userService.getLoggedUserId());

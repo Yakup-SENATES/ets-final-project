@@ -13,4 +13,5 @@ public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
     @Query("SELECT h from Hotel h where h.city = ?1")
     List<Hotel> findAllByCity(String destination);
+
 }

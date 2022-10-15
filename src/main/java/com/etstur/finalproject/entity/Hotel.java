@@ -26,8 +26,22 @@ public class Hotel {
     private String description;
     private String image;
 
-    @OneToMany
+    @OneToMany(mappedBy = "hotel")
     private List<Room> rooms;
 
-
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", address='" + address + '\'' +
+                ", city='" + city + '\'' +
+                ", country='" + country + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", rooms=" + rooms +
+                '}';
+    }
 }

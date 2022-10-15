@@ -4,13 +4,14 @@ import lombok.*;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 @AllArgsConstructor
 @NoArgsConstructor
-@Getter
-@Setter
-@Builder
 public class CurrentReservation {
     // temp class to filter data and get it from controller to database using services
     // current reservation fields and annotate to get the required data
@@ -21,44 +22,131 @@ public class CurrentReservation {
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private int stayPeriod;
+    private static int stayPeriod;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private String room;
+    private static String room;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private int price;
+    private static int price;
 
     @NotNull(message = "is required")
     @Size(min=1, message = "is requrired")
-    private int rooms;
+    private static int rooms;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private int persons;
+    private static int persons;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private int children;
+    private static int children;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private String openBuffet;
+    private static String openBuffet;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private Date arrivalDate;
+    private static Date arrivalDate;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private int userTId;
+    private static int userTId;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private String destination;
+    private static String destination;
 
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public static int getStayPeriod() {
+        return stayPeriod;
+    }
+
+    public static void setStayPeriod(int stayPeriod) {
+        CurrentReservation.stayPeriod = stayPeriod;
+    }
+
+    public static String getRoom() {
+        return room;
+    }
+
+    public static void setRoom(String room) {
+        CurrentReservation.room = room;
+    }
+
+    public static int getPrice() {
+        return price;
+    }
+
+    public static void setPrice(int price) {
+        CurrentReservation.price = price;
+    }
+
+    public static int getRooms() {
+        return rooms;
+    }
+
+    public static void setRooms(int rooms) {
+        CurrentReservation.rooms = rooms;
+    }
+
+    public static int getPersons() {
+        return persons;
+    }
+
+    public static void setPersons(int persons) {
+        CurrentReservation.persons = persons;
+    }
+
+    public static int getChildren() {
+        return children;
+    }
+
+    public static void setChildren(int children) {
+        CurrentReservation.children = children;
+    }
+
+    public static String getOpenBuffet() {
+        return openBuffet;
+    }
+
+    public static void setOpenBuffet(String openBuffet) {
+        CurrentReservation.openBuffet = openBuffet;
+    }
+
+    public static Date getArrivalDate() throws ParseException {
+        return arrivalDate;
+    }
+
+    public static void setArrivalDate(Date arrivalDate) {
+        CurrentReservation.arrivalDate = arrivalDate;
+    }
+
+    public static int getUserTId() {
+        return userTId;
+    }
+
+    public static void setUserTId(int userTId) {
+        CurrentReservation.userTId = userTId;
+    }
+
+    public static String getDestination() {
+        return destination;
+    }
+
+    public static void setDestination(String destination) {
+        CurrentReservation.destination = destination;
+    }
 
     @Override
     public String toString() {

@@ -19,6 +19,7 @@ import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @Controller
 @RequestMapping("/hotels")
@@ -36,19 +37,23 @@ public class HotelController {
             @RequestParam(value = "adultCount") int adults,
             @RequestParam(value = "childCount") int children,
             Model model) throws ParseException, IOException {
-        CurrentReservation reservation =  CurrentReservation
-                .builder()
-                .destination(destination)
-                .children(children)
-                .persons(adults)
-                .arrivalDate(parseDate(checkIn))
-                .openBuffet("false")
-                .userTId(Math.toIntExact(loggedUserId()))
-                .stayPeriod(betweenDates(parseDate(checkIn), parseDate(checkOut)))
-                .build();
-        model.addAttribute("reservation", reservation);
+
+
+        setReservation(destination, checkIn, checkOut, adults, children);
+        model.addAttribute("myHotel",new Hotel());
         model.addAttribute("hotels", getHotels(destination));
         return "hotels/list";
+    }
+
+
+    private void setReservation(String destination, String checkIn, String checkOut, int adults, int children) throws ParseException, IOException {
+        CurrentReservation.setDestination(destination);
+        CurrentReservation.setChildren(children);
+        CurrentReservation.setPersons(adults);
+        CurrentReservation.setArrivalDate(parseDate(checkIn));
+        CurrentReservation.setOpenBuffet("false");
+        CurrentReservation.setUserTId(Math.toIntExact(loggedUserId()));
+        CurrentReservation.setStayPeriod(betweenDates(parseDate(checkIn), parseDate(checkOut)));
     }
 
     private Long loggedUserId() {
@@ -66,7 +71,7 @@ public class HotelController {
     }
     //Parse date from string
     private Date parseDate(String date) throws ParseException {
-        return new SimpleDateFormat("dd-MM-yyyy").parse(date);
+        return new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).parse(date);
     }
 
     private List<Hotel> getHotels(String destination) {

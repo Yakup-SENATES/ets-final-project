@@ -1,16 +1,39 @@
 
 
-
 <div th:fragment="list" class="my-2 p-3 bg-white rounded box-shadow">
-    <h6 class="border-bottom border-gray pb-2 mb-0">Hotels for you</h6>
 
-    <div th:each="hotel: ${hotels}" class="media text-muted pt-3 tm-article">
-        <img th:src="@{../{img}(img=${hotel.image})}" alt="Image" class="mr-2 rounded" style="width: 240px; height: 252px;" >
-        <div class="tm-article-pad">
-            <header><h3 class="text-uppercase tm-article-title-2" th:test="${hotel.name}">Nunc in felis aliquet metus luctus iaculis</h3></header>
-            <p th:text="${hotel.description}">Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis sit amet ligula.</p>
-            <a href="#" class="text-uppercase btn-primary tm-btn-primary col-sm-5" style="float: right">Get More Info.</a>
+    <form th:action="@{/hotelDetails/detail}" th:each="hotel: ${hotels}" th:object="${myHotel}" method="post">
+        <h6 class="border-bottom border-gray pb-2 mb-0">Hotels for you</h6>
+
+        <div  class="media text-muted pt-3 tm-article">
+            <img th:src="@{../{img}(img=${hotel.image})}" alt="Image" class="mr-2 rounded"
+                 style="width: 240px; height: 252px;">
+
+            <input type="hidden" name="id" th:value="${hotel.id}">
+            <input type="hidden" name="name" th:value="${hotel.name}">
+            <input type="hidden" name="address" th:value="${hotel.address}">
+            <input type="hidden" name="city" th:value="${hotel.city}">
+            <input type="hidden" name="country" th:value="${hotel.country}">
+            <input type="hidden" name="phone" th:value="${hotel.phone}">
+            <input type="hidden" name="email" th:value="${hotel.email}">
+            <input type="hidden" name="description" th:value="${hotel.description}">
+            <input type="hidden" name="image" th:value="${hotel.image}">
+
+
+            <div class="tm-article-pad">
+                <header><h3 class="text-uppercase tm-article-title-2" th:text="${hotel.name}">Nunc in felis aliquet
+                    metus luctus iaculis</h3></header>
+                <p th:text="${hotel.description}">Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam
+                    sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis
+                    sit amet ligula.</p>
+                <a href="#" class="text-uppercase btn-primary tm-btn-primary col-sm-5" style="float: right">Get More
+                    Info.</a>
+                <input class="text-uppercase btn-primary tm-btn-primary col-sm-5" style="float: right" type="submit"
+                       value="Details"/>
+            </div>
         </div>
-    </div>
+
+    </form>
+
 
 </div>

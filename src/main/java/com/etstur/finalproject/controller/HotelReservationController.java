@@ -22,6 +22,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+import java.text.ParseException;
 import java.util.Map;
 
 @Controller
@@ -101,7 +102,7 @@ public class HotelReservationController {
     //save new Reservation
     @PostMapping("/proceed-reservation")
     public String proceedReservation(@Valid @ModelAttribute("newRes") CurrentReservation currentReservation,
-                                     BindingResult bindingResult, Model model) {
+                                     BindingResult bindingResult, Model model) throws ParseException {
 
         // if there is no error than save reservation
         if (bindingResult.hasErrors()) {

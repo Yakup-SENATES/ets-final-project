@@ -1,17 +1,16 @@
 package com.etstur.finalproject.entity;
 
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
-import lombok.Setter;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.*;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @Getter
 @Setter
-@RequiredArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
 public class Room {
 
     @Id
@@ -23,4 +22,20 @@ public class Room {
 
     private double price;
 
+    @ManyToOne
+    @JoinColumn(name = "hotel_id")
+    @JsonIgnore
+    private Hotel hotel;
+
+
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", description='" + description + '\'' +
+                ", image='" + image + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }
