@@ -41,9 +41,9 @@ public class FinalProjectApplication implements CommandLineRunner {
 
 
         Hotel hotel = new Hotel();
-        hotel.setCity("Istanbul");
+        hotel.setCity("Kadriye, Belek, Antalya");
         hotel.setCountry("Turkey");
-        hotel.setName("Istanbul Hotel");
+        hotel.setName("Granada Luxury Belek");
         hotel.setRooms(List.of(new Room()));
         hotel.setAddress("Istanbul");
         hotel.setDescription("Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis sit amet ligula");
