@@ -5,6 +5,7 @@ import com.etstur.finalproject.service.HotelService;
 import com.etstur.finalproject.service.UserService;
 import com.etstur.finalproject.temp.CurrentReservation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -29,18 +30,22 @@ public class HotelController {
     private final UserService userService;
     private final HotelService hotelService;
 
+    /*
+     * search edilince çalışır ve arama sonuçlarını gösterir
+     * */
+
     @GetMapping("/list")
     public String list(
-            @RequestParam(value = "destination") String destination,
-            @RequestParam(value = "checkIn") String checkIn,
-            @RequestParam(value = "checkOut") String checkOut,
-            @RequestParam(value = "adultCount") int adults,
+            @NonNull @RequestParam(value = "destination") String destination,
+            @NonNull @RequestParam(value = "checkIn") String checkIn,
+            @NonNull @RequestParam(value = "checkOut") String checkOut,
+            @NonNull @RequestParam(value = "adultCount") int adults,
             @RequestParam(value = "childCount") int children,
             Model model) throws ParseException, IOException {
 
 
         setReservation(destination, checkIn, checkOut, adults, children);
-        model.addAttribute("myHotel",new Hotel());
+        model.addAttribute("myHotel", new Hotel());
         model.addAttribute("hotels", getHotels(destination));
         return "hotels/list";
     }
@@ -57,21 +62,21 @@ public class HotelController {
     }
 
     private Long loggedUserId() {
-          Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            if (principal instanceof UserDetails) {
-                return userService.findUserByEmail(((UserDetails) principal).getUsername()).getId();
-            }
-            return null;
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        if (principal instanceof UserDetails) {
+            return userService.findUserByEmail(((UserDetails) principal).getUsername()).getId();
+        }
+        return null;
     }
 
     //Calculate the number of days between two dates
-    private int betweenDates(Date firstDate, Date secondDate) throws IOException
-    {
+    private int betweenDates(Date firstDate, Date secondDate) throws IOException {
         return (int) ChronoUnit.DAYS.between(firstDate.toInstant(), secondDate.toInstant());
     }
+
     //Parse date from string
     private Date parseDate(String date) throws ParseException {
-        return new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH).parse(date);
+        return new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH).parse(date);
     }
 
     private List<Hotel> getHotels(String destination) {
