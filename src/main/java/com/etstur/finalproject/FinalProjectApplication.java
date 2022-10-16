@@ -32,7 +32,7 @@ public class FinalProjectApplication implements CommandLineRunner {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
 
         User user = new User();
-        user.setUserName("Ertugrul");
+        user.setUserName("Jacop");
         user.setPassword(encoder.encode("123"));
         user.setEmail("q@q.q");
         user.setReservations(null);
@@ -46,41 +46,59 @@ public class FinalProjectApplication implements CommandLineRunner {
         hotel.setName("Istanbul Hotel");
         hotel.setRooms(List.of(new Room()));
         hotel.setAddress("Istanbul");
-        hotel.setDescription("Jacop -> Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis sit amet ligula");
-        hotel.setImage("img/img-01.jpg");
+        hotel.setDescription("Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis sit amet ligula");
+        hotel.setImage("img/img-011.png");
         hotel.setPhone("123456789");
         hotel.setEmail("hotel@q.q");
         hotelRepository.save(hotel);
 
         Hotel hotel2 = new Hotel();
-        hotel2.setCity("Istanbul");
+        hotel2.setCity("İleribaşı Mevkii, Belek, Antalya");
         hotel2.setCountry("Turkey");
-        hotel2.setName("Istanbul-2 Hotel");
+        hotel2.setName("Papillon Ayscha");
         hotel2.setRooms(List.of(new Room()));
         hotel2.setAddress("Istanbul");
-        hotel2.setDescription("Jacop -> Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis sit amet ligula");
-        hotel2.setImage("img/img-01.jpg");
+        hotel2.setDescription("Jacop Aliquam ac lacus volutpat, dictum risus at, scelerisque nulla. Nullam sollicitudin at augue venenatis eleifend. Nulla ligula ligula, egestas sit amet viverra id, iaculis sit amet ligula");
+        hotel2.setImage("img/img-012.png");
         hotel2.setPhone("123456789");
         hotel2.setEmail("hotel@q.q");
         hotelRepository.save(hotel2);
 
 
-
         Room roomDto = Room.builder()
                 .description("Bu oda 1 kişilik")
-                .image("img/img-01.jpg")
+                .image("img/room1.png")
                 .price(100)
                 .hotel(hotel)
+                .title("1 kişilik oda")
+                .build();
+
+        Room roomDto3 = Room.builder()
+                .description("Bu oda 2 kişilik")
+                .image("img/room2.png")
+                .price(200)
+                .hotel(hotel)
+                .title("2 kişilik oda")
+                .build();
+        Room roomDto4 = Room.builder()
+                .description("Bu oda 3 kişilik")
+                .image("img/room3.png")
+                .price(500)
+                .title("3 kişilik oda")
+                .hotel(hotel2)
                 .build();
 
         Room roomDto2 = Room.builder()
                 .description("Bu oda 4 kişilik")
-                .image("img/img-02.jpg")
+                .image("img/room4.png")
                 .price(400)
                 .hotel(hotel2)
+                .title("4 kişilik oda")
                 .build();
         roomRepository.save(roomDto);
         roomRepository.save(roomDto2);
+        roomRepository.save(roomDto3);
+        roomRepository.save(roomDto4);
 
     }
 }

@@ -17,6 +17,8 @@ public class Room {
     @GeneratedValue
     private Long id;
 
+    private String title;
+
     private String description;
     private String image;
 
@@ -28,14 +30,15 @@ public class Room {
     private Hotel hotel;
 
 
-
     @Override
     public String toString() {
         return "Room{" +
                 "id=" + id +
+                ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
                 ", image='" + image + '\'' +
                 ", price=" + price +
+                ", hotel=" + hotel +
                 '}';
     }
 }

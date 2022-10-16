@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.List;
@@ -24,12 +25,19 @@ public class HotelDetails {
             @ModelAttribute("myHotel") Hotel hotel,
             Model model
     ) {
-        System.out.println(hotel);
-        System.out.println(getRooms(hotel.getId()));
         model.addAttribute("hotel", hotel);
-       // model.addAttribute("rooms", getRooms(hotel.getId()));
+        model.addAttribute("rooms", getRooms(hotel.getId()));
+        model.addAttribute("myRoom", new Room());
+        return "hotels/roomList";
+    }
+
+
+    @PostMapping("/purchase")
+    public String purchase(@ModelAttribute("myRoom") Room room, Model model) {
+        model.addAttribute("room", room);
         return "hotels/purchase";
     }
+
 
     private List<Room> getRooms(Long hotelId) {
         return roomService.findAllByHotelId(hotelId);
