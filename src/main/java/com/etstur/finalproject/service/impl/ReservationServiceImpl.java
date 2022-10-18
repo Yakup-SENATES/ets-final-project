@@ -43,6 +43,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         reservation.setUserId((long) CurrentReservation.getUserTId());
         reservation.setArrivalDate(CurrentReservation.getArrivalDate());
+        reservation.setDestination(CurrentReservation.getDestination());
         reservation.setOpenBuffet(CurrentReservation.getOpenBuffet());
         reservation.setStayDays(CurrentReservation.getStayPeriod());
         reservation.setChildren(CurrentReservation.getChildren());

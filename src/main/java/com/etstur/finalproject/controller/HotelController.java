@@ -39,11 +39,12 @@ public class HotelController {
             @NonNull @RequestParam(value = "checkIn") String checkIn,
             @NonNull @RequestParam(value = "checkOut") String checkOut,
             @NonNull @RequestParam(value = "adultCount") int adults,
+            @NonNull @RequestParam(value = "roomCount") int roomCount,
             @RequestParam(value = "childCount") int children,
             Model model) throws ParseException, IOException {
 
 
-        setReservation(destination, checkIn, checkOut, adults, children);
+        setReservation(destination, checkIn, checkOut, adults, children,roomCount);
         model.addAttribute("myHotel", new Hotel());
         model.addAttribute("hotels", getHotels(destination));
         return "hotels/list";
@@ -52,7 +53,10 @@ public class HotelController {
 
 
 
-    private void setReservation(String destination, String checkIn, String checkOut, int adults, int children) throws ParseException, IOException {
+    private void setReservation(String destination, String checkIn,
+                                String checkOut, int adults,
+                                int children,int roomCount) throws ParseException, IOException {
+        CurrentReservation.setRooms(roomCount);
         CurrentReservation.setDestination(destination);
         CurrentReservation.setChildren(children);
         CurrentReservation.setPersons(adults);
