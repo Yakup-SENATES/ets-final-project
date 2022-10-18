@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="UTF-8">
     <title>Ödeme Sayfası</title>
@@ -25,6 +25,9 @@
                         </div>
                     </div>
                 </div>
+
+                <form th:action="@{/saveReservation}" th:object="${hotel}" method="post">
+
                 <div class="panel-body">
                     <div class="row">
                         <div class="col-xs-2"><img class="img-responsive" th:src="@{../{img}(img=${room.image})}">
@@ -67,12 +70,14 @@
                             <h4 class="text-right">Total <strong th:text="${price}">$50.00</strong></h4>
                         </div>
                         <div class="col-xs-3">
-                            <button type="button" class="btn btn-success btn-block">
+                            <button type="submit" class="btn btn-success btn-block">
                                 Checkout
                             </button>
                         </div>
                     </div>
                 </div>
+                </form>
+
             </div>
         </div>
     </div>

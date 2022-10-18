@@ -38,20 +38,19 @@ public class ReservationServiceImpl implements ReservationService {
     //Reservation class after check it to save it
     @Override
     @Transactional
-    public void saveOrUpdateReservation(CurrentReservation currentReservation) throws ParseException {
+    public void saveOrUpdateReservation() throws ParseException {
         Reservation reservation = new Reservation();
 
-        reservation.setUserId(userService.getLoggedUserId());
-
-        reservation.setArrivalDate(currentReservation.getArrivalDate());
-        reservation.setOpenBuffet(currentReservation.getOpenBuffet());
-        reservation.setStayDays(currentReservation.getStayPeriod());
-        reservation.setChildren(currentReservation.getChildren());
-        reservation.setPersons(currentReservation.getPersons());
-        reservation.setPrice(currentReservation.getPrice());
-        reservation.setRooms(currentReservation.getRooms());
-        reservation.setRoom(currentReservation.getRoom());
-        reservation.setId(currentReservation.getId());
+        reservation.setUserId((long) CurrentReservation.getUserTId());
+        reservation.setArrivalDate(CurrentReservation.getArrivalDate());
+        reservation.setOpenBuffet(CurrentReservation.getOpenBuffet());
+        reservation.setStayDays(CurrentReservation.getStayPeriod());
+        reservation.setChildren(CurrentReservation.getChildren());
+        reservation.setPersons(CurrentReservation.getPersons());
+        reservation.setPrice(CurrentReservation.getPrice());
+        reservation.setRooms(CurrentReservation.getRooms());
+        reservation.setRoom(CurrentReservation.getRoom());
+        reservation.setId(CurrentReservation.getId());
 
         reservationRepository.save(reservation);
     }
@@ -61,16 +60,16 @@ public class ReservationServiceImpl implements ReservationService {
         Optional<Reservation> reservation = getReservationForLoggedUserById(resId);
         CurrentReservation currentReservation = new CurrentReservation();
 
-        currentReservation.setArrivalDate(reservation.get().getArrivalDate());
-        currentReservation.setOpenBuffet(reservation.get().getOpenBuffet());
-        currentReservation.setStayPeriod(reservation.get().getStayDays());
-        currentReservation.setChildren(reservation.get().getChildren());
-        currentReservation.setPersons(reservation.get().getPersons());
-        currentReservation.setUserTId(Math.toIntExact(reservation.get().getUserId()));
-        currentReservation.setRooms(reservation.get().getRooms());
-        currentReservation.setRoom(reservation.get().getRoom());
-        currentReservation.setPrice((int) reservation.get().getPrice());
-        currentReservation.setId(reservation.get().getId());
+        CurrentReservation.setArrivalDate(reservation.get().getArrivalDate());
+        CurrentReservation.setOpenBuffet(reservation.get().getOpenBuffet());
+        CurrentReservation.setStayPeriod(reservation.get().getStayDays());
+        CurrentReservation.setChildren(reservation.get().getChildren());
+        CurrentReservation.setPersons(reservation.get().getPersons());
+        CurrentReservation.setUserTId(Math.toIntExact(reservation.get().getUserId()));
+        CurrentReservation.setRooms(reservation.get().getRooms());
+        CurrentReservation.setRoom(reservation.get().getRoom());
+        CurrentReservation.setPrice((int) reservation.get().getPrice());
+        CurrentReservation.setId(reservation.get().getId());
 
         return currentReservation;
     }

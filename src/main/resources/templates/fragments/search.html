@@ -21,12 +21,12 @@
 
                             <div class="form-group tm-form-element tm-form-element-50">
                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                <input required th:onchange="|compareToday()|" th:name="checkIn"  data-provide="datepicker" name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
+                                <input min="" required th:onchange="|compareToday()|" th:name="checkIn"  data-provide="datepicker" name="check-in" type="text" class="form-control" id="inputCheckIn" placeholder="Check In">
                             </div>
 
                             <div class="form-group tm-form-element tm-form-element-50">
                                 <i class="fa fa-calendar fa-2x tm-form-element-icon"></i>
-                                <input required th:onchange="|compareCheckin()|" th:name="checkOut" data-provide="datepicker"  name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
+                                <input min="" required th:onchange="|compareCheckin()|" th:name="checkOut" data-provide="datepicker"  name="check-out" type="text" class="form-control" id="inputCheckOut" placeholder="Check Out">
                             </div>
 
                         </div>
@@ -63,7 +63,7 @@
                                 <i class="fa fa-2x fa-bed tm-form-element-icon"></i>
                             </div>
                             <div class="form-group tm-form-element tm-form-element-2">
-                                <button type="submit" class="btn btn-primary tm-btn-search">Check Availability</button>
+                                <button th:onmouseover="|compareCheckin()|" th:onclick="|compareCheckin()|" type="submit" class="btn btn-primary tm-btn-search">Check Availability</button>
                             </div>
                         </div>
                         <div class="form-row clearfix pl-2 pr-2 tm-fx-col-xs">
@@ -92,17 +92,18 @@
             let todayDate = mm + '-' + dd+ '-' + yyyy;
             let checkInDate = document.getElementById("inputCheckIn").value;
             if (checkInDate < todayDate) {
+                alert("Check in date must be greater than today's date");
                 document.getElementById("inputCheckIn").value = todayDate;
             }
-            alert(checkInDate);
         }
         function compareCheckin() {
+            compareToday();
             let checkInDate = document.getElementById("inputCheckIn").value;
             let checkOutDate = document.getElementById("inputCheckOut").value;
             if (checkOutDate < checkInDate) {
+                alert("Check out date must be greater than check in date");
                 document.getElementById("inputCheckOut").value = checkInDate;
             }
-            alert(checkOutDate);
         }
 
         (function () {

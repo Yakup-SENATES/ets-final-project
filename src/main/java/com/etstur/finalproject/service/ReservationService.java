@@ -10,9 +10,13 @@ import java.util.Optional;
 
 public interface ReservationService {
 
-    public Optional<Reservation> getReservationForLoggedUserById(Long id) ;
-    public Collection<Reservation> getAllReservationsForLoggedUser();
-    public void saveOrUpdateReservation(CurrentReservation currentReservation) throws ParseException;
-    public void deleteReservation(Long id);
-    public CurrentReservation reservationToCurrentReservation(Long resId);
+    Optional<Reservation> getReservationForLoggedUserById(Long id);
+
+    Collection<Reservation> getAllReservationsForLoggedUser();
+
+    void saveOrUpdateReservation() throws ParseException;
+
+    void deleteReservation(Long id);
+
+    CurrentReservation reservationToCurrentReservation(Long resId);
 }

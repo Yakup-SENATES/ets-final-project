@@ -2,10 +2,14 @@
     <script th:src="@{../js/jquery-1.11.3.min.js}"></script>             <!-- jQuery (https://jquery.com/download/) -->
     <script th:src="@{../js/popper.min.js}"></script>                    <!-- https://popper.js.org/ -->
     <script th:src="@{../js/bootstrap.min.js}"></script>                 <!-- https://getbootstrap.com/ -->
-    <!--<script th:src="@{../js/datepicker.min.js}"></script>-->                <!-- https://github.com/qodesmith/datepicker -->
-    <script th:src="@{../js/jquery.singlePageNav.min.js}"></script>      <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
+    <!--<script th:src="@{../js/datepicker.min.js}"></script>-->
+    <!-- https://github.com/qodesmith/datepicker -->
+    <script th:src="@{../js/jquery.singlePageNav.min.js}"></script>
+    <!-- Single Page Nav (https://github.com/ChrisWojcik/single-page-nav) -->
     <script th:src="@{../slick/slick.min.js}"></script>                  <!-- http://kenwheeler.github.io/slick/ -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js" integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.min.js"
+            integrity="sha512-T/tUfKSV1bihCnd+MxKD0Hm1uBBroVYBOYSk1knyvQ9VyZJpc/ALb4P0r6ubwVPSGB2GvjeoMAJJImBG12TiaQ=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
     <script>
 
@@ -17,17 +21,17 @@
         function initialize() {
             var mapOptions = {
                 zoom: 16,
-                center: new google.maps.LatLng(13.7567928,100.5653741),
+                center: new google.maps.LatLng(13.7567928, 100.5653741),
                 scrollwheel: false
             };
 
-            map = new google.maps.Map(document.getElementById('google-map'),  mapOptions);
+            map = new google.maps.Map(document.getElementById('google-map'), mapOptions);
 
-            google.maps.event.addDomListener(map, 'idle', function() {
+            google.maps.event.addDomListener(map, 'idle', function () {
                 calculateCenter();
             });
 
-            google.maps.event.addDomListener(window, 'resize', function() {
+            google.maps.event.addDomListener(window, 'resize', function () {
                 map.setCenter(center);
             });
         }
@@ -36,7 +40,7 @@
             center = map.getCenter();
         }
 
-        function loadGoogleMap(){
+        function loadGoogleMap() {
             var script = document.createElement('script');
             script.type = 'text/javascript';
             script.src = 'https://maps.googleapis.com/maps/api/js?key=AIzaSyDVWt4rJfibfsEDvcuaChUaZRS5NXey1Cs&v=3.exp&sensor=false&' + 'callback=initialize';
@@ -49,7 +53,7 @@
                 $('.tm-article-carousel').slick('destroy');
             }
 
-            if($(window).width() < 438){
+            if ($(window).width() < 438) {
                 // Slick carousel
                 $('.tm-article-carousel').slick({
                     infinite: false,
@@ -57,8 +61,7 @@
                     slidesToShow: 1,
                     slidesToScroll: 1
                 });
-            }
-            else {
+            } else {
                 $('.tm-article-carousel').slick({
                     infinite: false,
                     dots: true,
@@ -68,16 +71,15 @@
             }
         }
 
-        function setPageNav(){
-            if($(window).width() > 991) {
+        function setPageNav() {
+            if ($(window).width() > 991) {
                 $('#tm-top-bar').singlePageNav({
-                    currentClass:'active',
+                    currentClass: 'active',
                     offset: 79
                 });
-            }
-            else {
+            } else {
                 $('#tm-top-bar').singlePageNav({
-                    currentClass:'active',
+                    currentClass: 'active',
                     offset: 65
                 });
             }
@@ -86,22 +88,21 @@
         function togglePlayPause() {
             vid = $('.tmVideo').get(0);
 
-            if(vid.paused) {
+            if (vid.paused) {
                 vid.play();
                 $('.tm-btn-play').hide();
                 $('.tm-btn-pause').show();
-            }
-            else {
+            } else {
                 vid.pause();
                 $('.tm-btn-play').show();
                 $('.tm-btn-pause').hide();
             }
         }
 
-        $(document).ready(function(){
+        $(document).ready(function () {
 
-            $(window).on("scroll", function() {
-                if($(window).scrollTop() > 100) {
+            $(window).on("scroll", function () {
+                if ($(window).scrollTop() > 100) {
                     $(".tm-top-bar").addClass("active");
                 } else {
                     //remove the background property so it comes transparent again (defined in your css)
@@ -113,11 +114,26 @@
             loadGoogleMap();
 
             // Date Picker
-           // const pickerCheckIn = datepicker('#inputCheckIn');
+            // const pickerCheckIn = datepicker('#inputCheckIn');
             //const pickerCheckOut = datepicker('#inputCheckOut');
             $.fn.datepicker.defaults.format = "mm-dd-yyyy";
+
             $('.datepicker').datepicker({
-                startDate: '-3d'
+                minDate: new Date(),
+                maxDate: new Date(new Date().setDate(new Date().getDate() + 30)),
+                autoClose: true,
+                todayHighlight: true,
+                templates: {
+                    leftArrow: '<i class="fa fa-angle-left"></i>',
+                    rightArrow: '<i class="fa fa-angle-right"></i>'
+                },
+                icons: {
+                    today: 'fa fa-calendar-check-o',
+                    clear: 'fa fa-trash',
+                    close: 'fa fa-times'
+                },
+
+
             });
 
 
@@ -125,27 +141,28 @@
             setCarousel();
             setPageNav();
 
-            $(window).resize(function() {
+            $(window).resize(function () {
                 setCarousel();
                 setPageNav();
             });
 
             // Close navbar after clicked
-            $('.nav-link').click(function(){
+            $('.nav-link').click(function () {
                 $('#mainNav').removeClass('show');
             });
 
             // Control video
-            $('.tm-btn-play').click(function() {
+            $('.tm-btn-play').click(function () {
                 togglePlayPause();
             });
 
-            $('.tm-btn-pause').click(function() {
+            $('.tm-btn-pause').click(function () {
                 togglePlayPause();
             });
 
             // Update the current year in copyright
             $('.tm-current-year').text(new Date().getFullYear());
+
         });
 
     </script>

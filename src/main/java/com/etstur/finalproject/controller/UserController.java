@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 
 @Controller
-@RequestMapping("/users")
+@RequestMapping("/")
 @RequiredArgsConstructor
 public class UserController {
 
@@ -23,7 +23,7 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         userService.saveUser(user);
-        return "redirect:/login";
+        return "register_success";
     }
 
     //redirect to register

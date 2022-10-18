@@ -11,14 +11,13 @@ import java.util.Date;
 import java.util.Locale;
 
 @AllArgsConstructor
-@NoArgsConstructor
 public class CurrentReservation {
     // temp class to filter data and get it from controller to database using services
     // current reservation fields and annotate to get the required data
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
-    private Long id;
+    private static Long id;
 
     @NotNull(message = "is required")
     @Size(min = 1, message = "is required")
@@ -60,12 +59,13 @@ public class CurrentReservation {
     @Size(min = 1, message = "is required")
     private static String destination;
 
-    public Long getId() {
+
+    public static Long getId() {
         return id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public static void setId(Long id) {
+        CurrentReservation.id = id;
     }
 
     public static int getStayPeriod() {

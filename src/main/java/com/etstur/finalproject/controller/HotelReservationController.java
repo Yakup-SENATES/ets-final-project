@@ -100,20 +100,14 @@ public class HotelReservationController {
     }
 
     //save new Reservation
-    @PostMapping("/proceed-reservation")
-    public String proceedReservation(@Valid @ModelAttribute("newRes") CurrentReservation currentReservation,
-                                     BindingResult bindingResult, Model model) throws ParseException {
+    @PostMapping("/saveReservation")
+    public String saveReservation() throws ParseException {
 
-        // if there is no error than save reservation
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("newRes", new CurrentReservation());
-            model.addAttribute("reservationError", "Please fill all fields");
-        } else {
-            reservationService.saveOrUpdateReservation(currentReservation);
-            model.addAttribute("reservationSuccess", "Reservation successful");
-        }
-        return "redirect:/your-reservations";
+        reservationService.saveOrUpdateReservation();
+
+        return "redirect:/congratulation";
     }
+
 
     // reservations of User
     @GetMapping("/your-reservations")
@@ -150,5 +144,8 @@ public class HotelReservationController {
         return "redirect:/login-form-page?logout";
     }
 
-
+    @GetMapping("/congratulation")
+    public String congratulation() {
+        return "congratulation";
+    }
 }

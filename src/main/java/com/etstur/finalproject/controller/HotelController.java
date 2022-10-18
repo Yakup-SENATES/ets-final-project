@@ -2,6 +2,7 @@ package com.etstur.finalproject.controller;
 
 import com.etstur.finalproject.entity.Hotel;
 import com.etstur.finalproject.service.HotelService;
+import com.etstur.finalproject.service.ReservationService;
 import com.etstur.finalproject.service.UserService;
 import com.etstur.finalproject.temp.CurrentReservation;
 import lombok.RequiredArgsConstructor;
@@ -10,9 +11,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import java.io.IOException;
 import java.text.ParseException;
@@ -29,7 +28,7 @@ public class HotelController {
 
     private final UserService userService;
     private final HotelService hotelService;
-
+    private final ReservationService reservationService;
     /*
      * search edilince çalışır ve arama sonuçlarını gösterir
      * */
@@ -51,6 +50,8 @@ public class HotelController {
     }
 
 
+
+
     private void setReservation(String destination, String checkIn, String checkOut, int adults, int children) throws ParseException, IOException {
         CurrentReservation.setDestination(destination);
         CurrentReservation.setChildren(children);
@@ -59,14 +60,16 @@ public class HotelController {
         CurrentReservation.setOpenBuffet("false");
         CurrentReservation.setUserTId(Math.toIntExact(loggedUserId()));
         CurrentReservation.setStayPeriod(betweenDates(parseDate(checkIn), parseDate(checkOut)));
+        CurrentReservation.setUserTId(Math.toIntExact(loggedUserId()));
     }
 
+    @NonNull
     private Long loggedUserId() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         if (principal instanceof UserDetails) {
             return userService.findUserByEmail(((UserDetails) principal).getUsername()).getId();
         }
-        return null;
+        return 0L;
     }
 
     //Calculate the number of days between two dates
