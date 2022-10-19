@@ -4,6 +4,7 @@ import com.etstur.finalproject.entity.Hotel;
 import com.etstur.finalproject.entity.Room;
 import com.etstur.finalproject.service.RoomService;
 import com.etstur.finalproject.temp.CurrentReservation;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -37,6 +38,7 @@ public class HotelDetails {
 
 
     @PostMapping("/purchase")
+    @ApiOperation(value = "Purchase", notes = "Purchase room")
     public String purchase(@ModelAttribute("myRoom") Room room, Model model) throws ParseException {
         CurrentReservation.setRoom(room.getTitle());
         CurrentReservation.setPrice((int) room.getPrice());

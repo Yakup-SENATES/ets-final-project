@@ -6,6 +6,7 @@ import com.etstur.finalproject.service.ReservationService;
 import com.etstur.finalproject.service.UserService;
 import com.etstur.finalproject.temp.CurrentReservation;
 import com.etstur.finalproject.temp.CurrentUser;
+import io.swagger.annotations.ApiOperation;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -126,10 +127,11 @@ public class HotelReservationController {
 
 
     // Delete Reservation
-    @GetMapping("/reservation-delete")
-    public String deleteReservation(@RequestParam("resId") int resId) {
-        reservationService.deleteReservation((long) resId);
-        return "redirect:/your-reservations";
+    @RequestMapping("/reservation-delete")
+    @ApiOperation(value = "Delete Reservation")
+    public String deleteReservation(@RequestParam(value = "resId") long resId) {
+        reservationService.deleteReservation(resId);
+        return "redirect:/";
     }
 
     //logout page

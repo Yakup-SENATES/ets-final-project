@@ -31,7 +31,7 @@ public class ReservationServiceImpl implements ReservationService {
     @Override
     @Transactional
     public Collection<Reservation> getAllReservationsForLoggedUser() {
-        return reservationRepository.findAllByUserId(userService.getLoggedUserId());
+        return reservationRepository.findAllByUserId((long) CurrentReservation.getUserTId());
     }
 
     //transfer data between temp reservation and

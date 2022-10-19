@@ -5,6 +5,7 @@ import com.etstur.finalproject.service.HotelService;
 import com.etstur.finalproject.service.ReservationService;
 import com.etstur.finalproject.service.UserService;
 import com.etstur.finalproject.temp.CurrentReservation;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.lang.NonNull;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,6 +35,7 @@ public class HotelController {
      * */
 
     @GetMapping("/list")
+    @ApiOperation(value = "Search hotels", notes = "Search hotels by city, check-in and check-out dates")
     public String list(
             @NonNull @RequestParam(value = "destination") String destination,
             @NonNull @RequestParam(value = "checkIn") String checkIn,
