@@ -97,3 +97,37 @@
 | `id`      | `int` | **Gerekli**. Reservation id |
 
 
+## Screees
+
+#### Home Page
+![](images/HomePage.png)
+
+#### Hotel List
+![](images/HotelList.png)
+
+
+#### Room List
+![](images/roomList.png)
+
+
+#### Purchase 
+![](images/purchase.png)
+
+
+#### Success Payment 
+![](images/Success_payment.png)
+
+#### Your Reservations
+![](images/your-reservations.png)
+
+
+#### Swagger UI
+![](images/swagger.png)
+
+
+
+
+
+
+
+
