@@ -1,6 +1,6 @@
 
 # Jacop's  Hotel Reservation
-
+(Tanıtım videosu sondadır.)
 
 
 
@@ -123,6 +123,13 @@
 
 #### Swagger UI
 ![](images/swagger.png)
+
+#### Project preview
+
+
+https://user-images.githubusercontent.com/76456346/197363499-55963aac-3308-4b9d-aba3-c3e1c2ef3d41.mp4
+
+
 
 
 
