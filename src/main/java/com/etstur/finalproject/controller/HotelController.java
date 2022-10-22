@@ -69,6 +69,7 @@ public class HotelController {
         CurrentReservation.setUserTId(Math.toIntExact(loggedUserId()));
     }
 
+    //giriş yapmış kullanıcının id sini döndürür
     @NonNull
     private Long loggedUserId() {
         Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -88,6 +89,7 @@ public class HotelController {
         return new SimpleDateFormat("MM-dd-yyyy", Locale.ENGLISH).parse(date);
     }
 
+    //Get hotels by destination
     private List<Hotel> getHotels(String destination) {
         return hotelService.getHotelsWithDestination(destination);
     }

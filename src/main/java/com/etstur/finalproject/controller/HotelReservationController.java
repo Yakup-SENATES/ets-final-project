@@ -55,42 +55,7 @@ public class HotelReservationController {
         return new ModelAndView("home-page", getHotelCities());
     }
 
-    //login page
-    @GetMapping("/login-form-page")
-    public String loginPage(Model model) {
-        //if user is already logged in, redirect to home page
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        if (!(authentication == null || authentication instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/";
-        }
-        // new user Attribute for signup form
-        model.addAttribute("newUser", new User());
-        return "login";
-    }
 
-    // registration process page
-    @PostMapping("/processRegistration")
-    public String registrationProcess(@Valid @ModelAttribute("newUser") CurrentUser currentUser,
-                                      BindingResult bindingResult, Model model) {
-
-        //check if user already exists
-        User user = userService.findUserByEmail(currentUser.getEmail());
-        if (user != null) {
-            model.addAttribute("registrationError", "User already exists");
-            model.addAttribute("newUser", new CurrentUser());
-            return "login";
-        }
-
-        //if binding has no error than create a User
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("newUser", new CurrentUser());
-            model.addAttribute("registrationError", "Please fill all fields");
-        } else {
-            userService.saveUser(currentUser);
-            model.addAttribute("registrationSuccess", "Registration successful");
-        }
-        return "redirect:/login-form-page";
-    }
 
     // Booking page
     @GetMapping("/new-reservation")
@@ -118,11 +83,11 @@ public class HotelReservationController {
     }
 
     // update reservation
-    @GetMapping("/reservation-update")
+    @GetMapping("/reservation-edit")
     public String updateReservation(@RequestParam("resId") int resId, Model model) {
         //new Update reservation attribute send to  service to store it
         model.addAttribute("newRes", reservationService.reservationToCurrentReservation((long) resId));
-        return "reservation-update";
+        return "edit-reservation";
     }
 
 
@@ -134,17 +99,7 @@ public class HotelReservationController {
         return "redirect:/";
     }
 
-    //logout page
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
-    public String logoutPage(HttpServletRequest request, HttpServletResponse response) {
-        //handle logout for logged in user
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (auth != null) {
-            new SecurityContextLogoutHandler().logout(request, response, auth);
-        }
-        return "redirect:/login-form-page?logout";
-    }
 
     @GetMapping("/congratulation")
     public String congratulation() {
