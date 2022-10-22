@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface HotelRepository extends JpaRepository<Hotel, Long> {
 
-    @Query("select city from Hotel")
+    @Query("select distinct(city) from Hotel order by city")
     List<String> findAllHotelCities();
 
     @Query("SELECT h from Hotel h where h.city = ?1")
