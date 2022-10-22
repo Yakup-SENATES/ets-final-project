@@ -16,14 +16,15 @@
                         <div class="row">
 
                             <div class="col-xs-6">
-                                <h5><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Your Reservations</h5>
+                                <h5><span class="glyphicon glyphicon-list-alt" aria-hidden="true"></span> Your
+                                    Reservations</h5>
                             </div>
 
                         </div>
                     </div>
                 </div>
 
-                <form th:each="res : ${resList}" th:action="@{/reservation-delete}" th:object="${hotel}" method="get">
+                <div th:each="res : ${resList}">
                     <input type="hidden" name="resId" th:value="${res.id}">
                     <div class="panel-body">
                         <div class="row">
@@ -40,14 +41,23 @@
                                     <h6>Child: <span th:text="${res.children}"></span></h6>
                                 </div>
                                 <div class="col-xs-2">
-                                    <button type="submit" class="btn btn-link btn-xs">
-                                        <span class="glyphicon glyphicon-trash"> </span>
-                                    </button>
+                                    <form th:action="@{/reservation-delete}" th:object="${hotel}" method="get">
+                                        <input type="hidden" name="resId" th:value="${res.id}">
+                                        <button type="submit" class="btn btn-link btn-xs">
+                                            <span class="glyphicon glyphicon-trash"> </span>
+                                        </button>
+                                    </form>
+                                    <form th:action="@{/reservation-edit}" th:object="${hotel}" method="get">
+                                        <input type="hidden" name="resId" th:value="${res.id}">
+                                        <button type="submit" class="btn btn-link btn-xs">
+                                            <span class="glyphicon glyphicon-pencil"> </span>
+                                        </button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </form>
+                </div>
 
             </div>
         </div>
