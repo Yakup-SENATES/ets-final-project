@@ -134,7 +134,7 @@ https://user-images.githubusercontent.com/76456346/197363499-55963aac-3308-4b9d-
 
 
 
-
+DevNot: Bu projede iş yoğunluğu sebebiyle elimden gelenin en iyisini yapamadım sadece hafta sonu bakabildiğim kadarıyla. Teşekkürler. 
 
 
 
